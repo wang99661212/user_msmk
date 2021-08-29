@@ -33,7 +33,7 @@ export default {
       data.forEach((item, key) => {
         item.url = url[key];
       });
-      console.log(data);
+      // console.log(data);
       this.tabbar_list = data;
     }
   },

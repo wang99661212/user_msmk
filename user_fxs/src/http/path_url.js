@@ -14,3 +14,10 @@ export function Bottm(){
         method:"get"
     })
 }
+export function Appindex(){
+    return service({
+        url:req.Index,
+        data:{},
+        method:"get"
+    })
+}

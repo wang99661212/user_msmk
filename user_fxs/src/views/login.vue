@@ -106,7 +106,7 @@ export default {
             client: "1"
           }
         );
-        console.log(res.remember_token);
+        // console.log(res.remember_token);
         if (res.code == "200") {
           this.$toast.success("登录成功");
           localStorage.setItem('token',JSON.stringify(res.data.remember_token))
