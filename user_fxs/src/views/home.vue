@@ -1,33 +1,23 @@
 <template>
-<div>
-    home
-</div>
+  <div>
+
+  </div>
 </template>
 
 <script>
-
 export default {
-components: {},
-data() {
-return {
-
+  components: {},
+  data() {
+    return {};
+  },
+  computed: {},
+  watch: {},
+  methods: {},
+  created() {},
+  mounted() {}
 };
-},
-computed: {},
-watch: {},
-methods: {
-
-},
-created() {
-
-},
-mounted() {
-
-},
-}
 </script>
 <style lang='scss' scoped>
-
 </style>
 //                       .::::.
 //                     .::::::::.

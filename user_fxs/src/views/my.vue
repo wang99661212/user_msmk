@@ -1,44 +1,31 @@
 <template>
-    <div>
-        <div>
-            <img src="@/assets/切图/arrow-left-bold.png" alt="" class="head_left">
-        </div>
-        <div class="head_cen">
-            <img src="@/assets/切图/head.png" class="head_img">
-        </div>
-        <div class="foot">
-            <div class="foot_box">
-                <div class="foot_inp">
-                    <div class="inp_top">
-                        <img src="@/assets/切图/head_hod.png" alt="" style="width:25px;height:30px;">
-                        <div class="inp_box">
-                            <input type="text" placeholder="请输入手机号" class="inp" v-model="phone">
-                        </div>
-                        <button class="foot_top_but" @click="numder">获取验证码</button>
-                    </div>
-                    <div class="inp_bot">
-                        <img src="@/assets/切图/images/A_07.png" alt="" style="width:30px;height:30px;">
-                        <div class="inp_box">
-                            <input type="text" placeholder="请输入验证码" class="inp" v-model="phone_number">
-                        </div>
-                    </div>
-                </div>
-
-                <button class="logo_bot" @click="login">登录</button>
-                <div class="but_bot">
-                    <div class="text">
-                        *未注册的手机号将自动注册
-                    </div>
-                    <div class="text">
-                        密码登录
-                    </div>
-                </div>
-                <div>
-                    <img src="@/assets/切图/images/A.png" alt="" class="foot_img_bot">
-                </div>
-            </div>
-        </div>
+  <div class="box">
+    <div class="head" @click="login">
+      <div v-show="!token" class="login_top">
+        <img src="@/assets/img/my2.png" alt="" class="head_img">
+        <p class="login">登录/注册</p>
+      </div>
+      <div v-show="token" class="login_bot">
+        <img src="@/assets/img/blue.jpg" alt="" class="head_img">
+        <p class="login1">{{data}}</p>
+      </div>
     </div>
+
+    <div class="nav">
+      <div class="nav_box">
+        <p>0</p>
+        <p>我的学习</p>
+      </div>
+      <div class="nav_box1">
+        <p>0</p>
+        <p>本周课时</p>
+      </div>
+      <div class="nav_box2">
+        <p>0</p>
+        <p>我的积分</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -46,120 +33,172 @@ export default {
   components: {},
   data() {
     return {
-        phone:'',
-        phone_number:''
-
+      data:JSON.parse(localStorage.getItem("data")) || "",
+      token: JSON.parse(localStorage.getItem("token")) || ""
     };
   },
-  computed: {},
+  computed: {
+    menusList() {
+      return [
+        [
+          {
+            name: "我的作业",
+            icon: "description",
+            url: "Homework"
+          },
+          {
+            name: "我的社区",
+            icon: "friends-o",
+            url: "MyCommunity"
+          }
+        ],
+        [
+          {
+            name: "课程订单",
+            icon: "newspaper-o",
+            url: "Order"
+          },
+          {
+            name: "图书订单",
+            icon: "idcard",
+            url: "Order"
+          }
+        ],
+        [
+          {
+            name: "优惠券",
+            icon: "coupon-o",
+            url: "Coupon"
+          },
+          {
+            name: "学习卡",
+            icon: "debit-pay",
+            url: "Card"
+          },
+          {
+            name: "分销中心",
+            icon: "peer-pay",
+            url: "Distribute"
+          }
+        ],
+        [
+          {
+            name: "消息中心",
+            icon: "comment-o",
+            url: "Message"
+          },
+          {
+            name: "地址管理",
+            icon: "location-o",
+            url: "Address"
+          },
+          {
+            name: "关于我们",
+            icon: "friends-o",
+            url: "About"
+          },
+          {
+            name: "意见反馈",
+            icon: "records",
+            url: "Feedback"
+          },
+          {
+            name: "设置",
+            icon: "setting-o",
+            url: "Options"
+          }
+        ]
+      ];
+    }
+  },
   watch: {},
   methods: {
-    async numder(){
-          let res =await this.$http.post('http://120.53.31.103:84/api/app/smsCode',{
-              mobile:this.phone,
-              sms_type:'login',
-          })
-        console.log(res);
-      },
-     async login(){
-         let res = await this.$http.post('http://120.53.31.103:84/api/app/login',{
-             mobile:this.phone,
-             sms_code:this.phone_number,
-             type:"2",
-             client:'1'
-         })
-         console.log(res);
-         if(res.code=='200'){
-             this.$toast.success('登录成功');
-            }else{
-                this.$toast.fail('登录失败');
-            }
-      }
+    login() {
+      this.$router.push("/login");
+    }
   },
-  created() {
+  async created() {
+    if (this.token) {
+      console.log(33);
+      let data = await userinfo({});
+      console.log(data);
+    }
   },
   mounted() {}
-}
+};
 </script>
 <style lang='scss' scoped>
-.foot_img_bot{
-    margin-top: 215px;
-    width: 100%;
+.nav_box {
+  text-align: center;
+  :nth-child(1) {
+    color: #5bb8f5;
+    font-size: 5.6vw;
+  }
+  :nth-child(2) {
+    font-size: 3.73333vw;
+    color: #595959;
+  }
 }
-.text {
-  font-size: 20px;
-  color: #989898;
+.nav_box1 {
+  text-align: center;
+  :nth-child(1) {
+    color: #e60012;
+    font-size: 5.6vw;
+  }
+  :nth-child(2) {
+    font-size: 3.73333vw;
+    color: #595959;
+  }
 }
-.but_bot {
-  margin-top: 30px;
+.nav_box2 {
+  text-align: center;
+  :nth-child(1) {
+    color: #e74d3d;
+    font-size: 5.6vw;
+  }
+  :nth-child(2) {
+    font-size: 3.73333vw;
+    color: #595959;
+  }
+}
+.nav {
+  margin-top: 40px;
   width: 100%;
+  height: 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
-.logo_bot {
+.head {
+  background: url("../assets/img/my1.png");
   width: 100%;
-  height: 90px;
-  margin-top: 117px;
-  font-size: 29px;
-  color: white;
-  background-color: #eb6100;
-  border-radius: 10px;
-  border: 0;
+  height: 400px;
+  background-size: cover;
 }
-.foot_top_but {
-  position: absolute;
-  width: 160px;
-  height: 48px;
-  background: #eb6100;
-  border: 0;
-  color: white;
-  font-size: 24px;
-  border-radius: 3px;
-  right: 0px;
-  top: 0px;
-}
-.inp_bot {
+.login_top {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 75px;
+  flex-direction: column;
+  align-items: center;
 }
-.inp_top {
+.login_bot{
   display: flex;
-  width: 100%;
-  justify-content: space-between;
-  position: relative;
-}
-.inp_box {
-  width: 545px;
-  height: 80px;
-  border-bottom: 1px solid #eaeaea;
-}
-.inp {
-  border: 0;
-  padding-left: 10px;
-  box-sizing: border-box;
-}
-.foot_box {
-  width: 615px;
-}
-.foot {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.head_cen {
-  margin-top: 116px;
-  margin-bottom: 105px;
-}
-.head_left {
-  width: 60px;
-  height: 60px;
-  margin-top: 23px;
-  margin-left: 26px;
+  align-items: center;
+  margin-left: 50px;
+  .login1{
+    margin-left: 40px;
+    color: white;
+    margin-top: 20px;
+    font-size: 4.53vw;
+  }
 }
 .head_img {
-  width: 100%;
+  margin-top: 100px; 
+  width: 120px;
+  height: 120px;
+}
+.login {
+  color: white;
+  margin-top: 20px;
+  font-size: 35px;
 }
 </style>
 //                       .::::.

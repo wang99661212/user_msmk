@@ -1,45 +1,67 @@
 <template>
-  <div>
-    <div class="box">
-      <router-view />
-      <!-- <van-tabbar v-model="active">
-        <van-tabbar-item icon="home-o" to="/home">首页</van-tabbar-item>
-        <van-tabbar-item icon="friends-o" to="/course">课程</van-tabbar-item>
-        <van-tabbar-item icon="comment-o" to="/consult">咨询</van-tabbar-item>
-        <van-tabbar-item icon="send-gift-o" to="/books">图书</van-tabbar-item>
-        <van-tabbar-item icon="manager-o" to="/my">我的</van-tabbar-item>
-      </van-tabbar> -->
-      <Tabbar />
+    <div class="tabbar">
+        <router-link v-for="(item,index) in tabbar_list" :key="index" :to="item.url">
+            <p @click="tab(index)">
+                <img :src="num==index?item.nav_img_checked:item.nav_img" alt="" class="tab_img">
+                <span class="tab_text" :style="{'num':true,color:num==index?'red':''}">{{item.name}}</span>
+            </p>
+
+        </router-link>
     </div>
-  </div>
 </template>
 
 <script>
-import Tabbar from "@/components/tabbar"
+import {Bottm} from '@/http/path_url.js'
 export default {
-  components: {Tabbar},
+  components: {},
   data() {
     return {
-      active:0,
-      list:[]
+      tabbar_list: [],
+      num: 0
     };
   },
   computed: {},
   watch: {},
   methods: {
-    async getlogo(){
-      let res = this.$http.get
+      tab(index){
+          this.num=index
+      },
+    async gittabbar() {
+      let { data: index } = await Bottm()
+      let url = ["/home", "/course", "/consult", "/books", "/my"];
+      let data = index.index;
+      data.forEach((item, key) => {
+        item.url = url[key];
+      });
+      console.log(data);
+      this.tabbar_list = data;
     }
   },
   created() {
-    this.getlogo()
+    this.gittabbar();
   },
   mounted() {}
 };
 </script>
 <style lang='scss' scoped>
-/deep/.van-tabbar-item__text{
+.tabbar {
+  background: white;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.tab_img {
+  width: 50px;
+  height: 50px;
+}
+.tab_text {
+  display: block;
   font-size: 20px;
+  color: #ccc;
 }
 </style>
 //                       .::::.
