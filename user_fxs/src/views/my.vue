@@ -34,8 +34,12 @@ export default {
   data() {
     return {
       data:JSON.parse(localStorage.getItem("data")) || "",
-      token: JSON.parse(localStorage.getItem("token")) || ""
+      token: ""
     };
+  },
+ created() {
+    this.token = this.$store.state.token
+    
   },
   computed: {
     menusList() {
@@ -117,13 +121,7 @@ export default {
       this.$router.push("/login");
     }
   },
-  async created() {
-    if (this.token) {
-      console.log(33);
-      let data = await userinfo({});
-      console.log(data);
-    }
-  },
+  
   mounted() {}
 };
 </script>

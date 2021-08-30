@@ -2,8 +2,8 @@
     <div class="tabbar">
         <router-link v-for="(item,index) in tabbar_list" :key="index" :to="item.url">
             <p @click="tab(index)">
-                <img :src="num==index?item.nav_img_checked:item.nav_img" alt="" class="tab_img">
-                <span class="tab_text" :style="{'num':true,color:num==index?'red':''}">{{item.name}}</span>
+                <img :src="$store.state.num==index?item.nav_img_checked:item.nav_img" alt="" class="tab_img">
+                <span class="tab_text" :style="{'num':true,color:$store.state.num==index?'red':''}">{{item.name}}</span>
             </p>
 
         </router-link>
@@ -17,14 +17,14 @@ export default {
   data() {
     return {
       tabbar_list: [],
-      num: 0
+      
     };
   },
   computed: {},
   watch: {},
   methods: {
       tab(index){
-          this.num=index
+          this.$store.commit('tab',index)
       },
     async gittabbar() {
       let { data: index } = await Bottm()

@@ -35,7 +35,7 @@
               <p>
                 {{data_js_name}}
               </p>
-              <p>
+              <p @click="tabBar">
                 更多>
               </p>
             </div>
@@ -78,18 +78,18 @@
             <p>
               {{data_ms_name}}
             </p>
-            <p>
+            <p @click="tabBar">
               更多>
             </p>
           </div>
         </div>
         <div v-for="(it,key) in data_ms.list" :key="key" class="js_bot">
-            <img :src="it.teacher_avatar" alt="" class="js_img">
-            <div class="ms_p">
-              <p>{{it.teacher_name}}</p>
-              <p>{{it.introduction}}</p>
-            </div>
+          <img :src="it.teacher_avatar" alt="" class="js_img">
+          <div class="ms_p">
+            <p>{{it.teacher_name}}</p>
+            <p>{{it.introduction}}</p>
           </div>
+        </div>
 
       </div>
     </div>
@@ -114,6 +114,10 @@ export default {
   computed: {},
   watch: {},
   methods: {
+    tabBar() {
+      this.$store.commit("tabBar");
+      this.$router.push("/course");
+    },
     async getlist() {
       let res = await Appindex();
       this.data_js = res.data[0];
@@ -122,7 +126,7 @@ export default {
       this.data_kc_name = this.data_kc.channel_info.name;
       this.data_ms = res.data[2];
       this.data_ms_name = this.data_ms.channel_info.name;
-      console.log(this.data_kc);
+      // console.log(this.data_kc);
       // console.log(this.data_ms);
     }
   },
@@ -133,7 +137,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.js_bot{
+.js_bot {
   width: 90%;
   margin: 20px auto;
   display: flex;
@@ -142,8 +146,8 @@ export default {
   border: 1px solid #cccccc;
   border-radius: 20px;
 }
-.ms_p{
-  p{
+.ms_p {
+  p {
     font-size: 30px;
   }
 }
@@ -228,6 +232,7 @@ export default {
 .top_text {
   width: 100%;
   height: 40px;
+
   display: flex;
   align-items: center;
 }

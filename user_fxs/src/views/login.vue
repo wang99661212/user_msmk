@@ -109,7 +109,7 @@ export default {
         // console.log(res.remember_token);
         if (res.code == "200") {
           this.$toast.success("登录成功");
-          localStorage.setItem('token',JSON.stringify(res.data.remember_token))
+          this.$store.commit("tokenSms",res.data.remember_token)
           localStorage.setItem('data',JSON.stringify(res.data.nickname))
           this.$router.push('/my')
         } else {
@@ -130,7 +130,7 @@ export default {
         if (res.code == "200") {
           this.$toast.success("登录成功");
           console.log(res.data);
-          localStorage.setItem('token',JSON.stringify(res.data.remember_token))
+         this.$store.commit("tokenSms",res.data.remember_token)
           localStorage.setItem('data',JSON.stringify(res.data.nickname))
            this.$router.push('/my')
         } else {

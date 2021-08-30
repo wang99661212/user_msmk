@@ -1,41 +1,89 @@
 <template>
-  <div class="box">
     <div class="box">
-      <router-view />
-      <Tabbar />
+        <div class="box_center" v-for="(item,index) in data_ms.list" :key="index">
+            <img :src="item.teacher_avatar" alt="">
+            <div class="right_text">
+                <p>{{item.teacher_name}}</p>
+                <p></p>
+                <p>{{item.introduction}}</p>
+            </div>
+        </div>
+        <div class="foot">到底了没有了</div>
     </div>
-  </div>
 </template>
 
 <script>
-import Tabbar from "@/components/tabbar"
+import { Appindex } from "@/http/path_url";
 export default {
-  components: {Tabbar},
+  components: {},
   data() {
     return {
-      active:0,
-      list:[]
+      data_ms: {},
+      data_ms_name: ""
     };
   },
   computed: {},
   watch: {},
   methods: {
-    async getlogo(){
-      let res = this.$http.get
+    async getlist() {
+      let res = await Appindex();
+      this.data_ms = res.data[2];
+      this.data_ms_name = this.data_ms.channel_info.name;
+    //   console.log(this.data_ms);
+      // console.log(this.data_ms);
     }
   },
   created() {
-    this.getlogo()
+    this.getlist();
   },
   mounted() {}
 };
 </script>
 <style lang='scss' scoped>
-.box{
-  height: 100%;
+.foot{
+    color: #595959;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+
 }
-/deep/.van-tabbar-item__text{
-  font-size: 20px;
+.right_text{
+    margin-left: 20px;
+    width: 400px;
+    p:nth-child(1){
+        font-size: 4vw;
+        color: #595959;
+    }
+    p:nth-child(2){
+        height: 15px;
+        width: 100%;
+    }
+    p:nth-child(3){
+        font-size: 3.2vw;
+        color: #b7b7b7;
+    }
+}
+.box {
+  width: 100%;
+  height: 100%;
+  background: #f7f8fa;
+  overflow: hidden;
+}
+.box_center {
+  width: 90%;
+  height: 150px;
+  border-radius: 20px;
+  margin: 40px auto;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
 }
 </style>
 //                       .::::.

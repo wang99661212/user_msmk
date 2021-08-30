@@ -21,3 +21,17 @@ export function Appindex(){
         method:"get"
     })
 }
+export function Classify(){
+    return service({
+        url:req.Classify,
+        data:{},
+        method:"get"
+    })
+}
+export function Infor(reg){
+    return service({
+        url:req.Infor,
+        data:reg,
+        method:"get"
+    })
+}

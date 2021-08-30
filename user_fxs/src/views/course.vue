@@ -1,13 +1,13 @@
 <template>
-<div>
-    course
+<div class="box">
+    <Course />
 </div>
 </template>
 
 <script>
-
+import Course from "@/components/Course.vue"
 export default {
-components: {},
+components: {Course},
 data() {
 return {
 
@@ -27,7 +27,9 @@ mounted() {
 }
 </script>
 <style lang='scss' scoped>
-
+.box{
+    height: 100%;
+}
 </style>
 //                       .::::.
 //                     .::::::::.
