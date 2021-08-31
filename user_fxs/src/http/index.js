@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {Toast} from "vant"
 import {baseURL} from "@/config"
+import store from "@/store"
 console.log(baseURL);
 // 设置axios的基地址【面试题】
 // 每次diaoy个接口时都要写上完整的地址，每个接口的地址前面部分是相同的，on
@@ -22,7 +23,7 @@ service.interceptors.request.use(function (config) {
     // let token = localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')).token:""
     // // console.log(token);
     // // 配置   头(英文意思:头部)   token(英文意思:授权/认可/批准)
-    // config.headers.Authorization = token
+    config.headers.Authorization ="Bearer "+store.state.token
     return config;
   }, function (error) {
     // 对请求错误做些什么

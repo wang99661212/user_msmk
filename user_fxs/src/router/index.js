@@ -37,6 +37,10 @@ const routes = [
     component: () => import('@/views/login')
   },
   {
+    path: '/sign',
+    component: () => import('@/views/sign')
+  },
+  {
     path: '*',
     redirect: '/'
   }

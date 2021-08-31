@@ -1,14 +1,15 @@
 <template>
   <div class="box">
-    <div class="head" @click="login">
-      <div v-show="!token" class="login_top">
+    <div class="head" >
+      <div v-show="!token" class="login_top" @click="login">
         <img src="@/assets/img/my2.png" alt="" class="head_img">
         <p class="login">登录/注册</p>
       </div>
-      <div v-show="token" class="login_bot">
+      <div v-show="token" class="login_bot" @click="login">
         <img src="@/assets/img/blue.jpg" alt="" class="head_img">
         <p class="login1">{{data}}</p>
       </div>
+      <p class="qiandao" @click="go">已签到</p>
     </div>
 
     <div class="nav">
@@ -117,6 +118,9 @@ export default {
   },
   watch: {},
   methods: {
+    go(){
+      this.$router.push("/sign")
+    },
     login() {
       this.$router.push("/login");
     }
@@ -126,6 +130,22 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+.qiandao{
+    position: absolute;
+    right: 00px;
+    top: 100px;
+    width: 170px;
+    height: 50px;
+    background-color: #5bb8f5;
+    border-radius: 20px 0px 0px 20px;
+    margin-left: 200px;
+    text-align: right;
+    font-size: 30px;
+    line-height: 50px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    color: white;
+  }
 .nav_box {
   text-align: center;
   :nth-child(1) {

@@ -35,3 +35,25 @@ export function Infor(reg){
         method:"get"
     })
 }
+
+export function Sign(){
+    return service({
+        url:req.Sign,
+        data:{},
+        method:"get"
+    })
+}
+export function Haoke(){
+    return service({
+        url:req.Haoke,
+        data:{},
+        method:"get"
+    })
+}
+export function Tushu(){
+    return service({
+        url:req.Tushu,
+        data:{},
+        method:"get"
+    })
+}

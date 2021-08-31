@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 import VuexPersistence from "vuex-persist";
-import axios from '_axios@0.21.1@axios';
+// import axios from 'axios';
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,//存储的位置
 })
