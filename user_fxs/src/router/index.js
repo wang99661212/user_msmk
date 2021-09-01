@@ -41,6 +41,14 @@ const routes = [
     component: () => import('@/views/sign')
   },
   {
+    path: '/xiang',
+    component: () => import('@/views/xiang')
+  },
+  {
+    path: '/Basis',
+    component: () => import('@/views/Basis')
+  },
+  {
     path: '*',
     redirect: '/'
   }

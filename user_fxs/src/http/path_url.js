@@ -2,7 +2,7 @@ import service from "./index.js"
 import req from "./requer.js"
 export function Home(reg){
     return service({
-        url:"/login",
+        url:"app/login",
         data:reg,
         method:"post"
     })
@@ -55,5 +55,42 @@ export function Tushu(){
         url:req.Tushu,
         data:{},
         method:"get"
+    })
+}
+export function SignRecord(reg){
+    return service({
+        url:req.SignRecord,
+        data:reg,
+        method:"get"
+    })
+}
+
+export function Xiangid(reg){
+    return service({
+        url:req.Xiangid+reg,
+        data:{},
+        method:"get"
+    })
+}
+
+export function Xianglist(reg){
+    return service({
+        url:req.Xianglist,
+        data:reg,
+        method:"post"
+    })
+}
+export function Basis(reg){
+    return service({
+        url:req.Basis+reg,
+        data:{},
+        method:"get"
+    })
+}
+export function Chapter(reg){
+    return service({
+        url:req.Chapter,
+        data:reg,
+        method:"post"
     })
 }

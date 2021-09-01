@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <div class="box_center" v-for="(item,index) in data_ms.list" :key="index">
+        <div class="box_center" v-for="(item,index) in data_ms.list" :key="index" @click="go(item.teacher_id)">
             <img :src="item.teacher_avatar" alt="">
             <div class="right_text">
                 <p>{{item.teacher_name}}</p>
@@ -25,6 +25,9 @@ export default {
   computed: {},
   watch: {},
   methods: {
+    go(id){
+      this.$router.push("/xiang?id="+id)
+    },
     async getlist() {
       let res = await Appindex();
       this.data_ms = res.data[2];

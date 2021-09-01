@@ -6,5 +6,9 @@ module.exports={
     Sign:"app/user/integral/isSign",
     Haoke:"integral/shop/index?type=1&",
     Tushu:"integral/shop/index?type=2&",
-
+    SignRecord:"app/user/integral/signRecord",
+    Xiangid:"app/teacher/",
+    Xianglist:"app/teacher/mainCourse",
+    Basis:"app/courseInfo/basis_id=",
+    Chapter:"app/courseChapter"
 }

@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import {Home} from "@/http/path_url.js"
 export default {
   components: {},
   data() {
@@ -77,9 +78,7 @@ export default {
       this.$router.go(-1)
     },
     async numder() {
-      let res = await this.$http.post(
-        "http://120.53.31.103:84/api/app/smsCode",
-        {
+      let res = await Home({
           mobile: this.phone,
           sms_type: "login"
         }
@@ -97,9 +96,7 @@ export default {
     },
     async login() {
       if (this.logflag) {
-        let res = await this.$http.post(
-          "http://120.53.31.103:84/api/app/login",
-          {
+        let res = await Home({
             mobile: this.phone,
             sms_code: this.phone_number,
             type: "2",
@@ -116,9 +113,7 @@ export default {
           this.$toast.fail("登录失败");
         }
       }else{
-        let res = await this.$http.post(
-          "http://120.53.31.103:84/api/app/login",
-          {
+        let res = await Home({
             mobile: this.phone,
             sms_code: this.phone_number,
             password:this.pwd,

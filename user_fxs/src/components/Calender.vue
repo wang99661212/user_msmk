@@ -1,42 +1,42 @@
 <template>
-    <div class="calender">
-        <div class="top">
-            <!-- <div class="preDate"> -->
-            <!-- <button class="preYear" @click="getMyDate(year-parseInt(1,10),month)">&lt;&lt;</button> -->
+  <div class="calender">
+    <div class="top">
+      <!-- <div class="preDate"> -->
+      <!-- <button class="preYear" @click="getMyDate(year-parseInt(1,10),month)">&lt;&lt;</button> -->
 
-            <!-- <button class="preMonth" >&lt;</button> -->
-            <!-- </div> -->
-            <div class="data_riqi">
-                <img src="@/assets/arrow-left-filling.png" alt="" @click="getMyDate(year,month-parseInt(1,10))" class="left_but">
-                <span class="riqi">{{year}}年{{month}}月</span>
-                <img class="right_but" src="@/assets/arrow-right-filling.png" alt="" @click="getMyDate(year,month+parseInt(1,10))">
-            </div>
-            <!-- <div class="nextDate"> -->
+      <!-- <button class="preMonth" >&lt;</button> -->
+      <!-- </div> -->
+      <div class="data_riqi">
+        <img src="@/assets/arrow-left-filling.png" alt="" @click="getMyDate(year,month-parseInt(1,10))" class="left_but">
+        <span class="riqi">{{year}}年{{month}}月</span>
+        <img class="right_but" src="@/assets/arrow-right-filling.png" alt="" @click="getMyDate(year,month+parseInt(1,10))">
+      </div>
+      <!-- <div class="nextDate"> -->
 
-            <!-- <button class="nextMonth" >&gt;</button> -->
-            <!-- <button class="nextYear" @click="getMyDate(year+parseInt(1,10),month)">&gt;&gt;</button> -->
-            <!-- </div> -->
-        </div>
-
-        <div class="bottom">
-            <table>
-                <thead>
-                    <tr>
-                        <th v-for="(item,index) in weeks" :key="index">
-                            {{item.name}}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item,index) in all" :key="index" >
-                        <th v-for="(item2,ind) in item" :key="ind" v-if="item2===day" class="active" @click="xuanze(item2,ind)">{{item2}}</th>
-                        <th v-else-if="item2>0" @click="xuanze(item2,ind)">{{item2}}</th>
-                        <th v-else></th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <!-- <button class="nextMonth" >&gt;</button> -->
+      <!-- <button class="nextYear" @click="getMyDate(year+parseInt(1,10),month)">&gt;&gt;</button> -->
+      <!-- </div> -->
     </div>
+
+    <div class="bottom">
+      <table>
+        <thead>
+          <tr>
+            <th v-for="(item,index) in weeks" :key="index">
+              {{item.name}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in all" :key="index">
+            <th v-for="(item2,ind) in item" :key="ind" v-if="item2===day" class="active" @click="xuanze(item2,ind)">{{item2}}</th>
+            <th v-else-if="item2>0" @click="xuanze(item2,ind)">{{item2}}</th>
+            <th v-else></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
  
 <script>
@@ -48,6 +48,7 @@ export default {
       month: 8, // 设置当前月份
       day: 1, // 设置当前号数
       all: [], // 日历表格数组
+      data: "",
       weeks: [
         { id: 0, name: "日" },
         { id: 1, name: "一" },
@@ -62,10 +63,20 @@ export default {
   beforeMount() {
     this.getMyDate();
   },
+  created() {
+    this.data = this.year + "-" + this.month + "-" + this.day;
+    this.$store.commit("mydata", this.data);
+    this.clas()
+  },
   methods: {
-    xuanze(item,index){
-      console.log(123);
-      console.log(item,index);
+    clas(){
+
+    },
+    xuanze(item, index) {
+      console.log(this.year);
+      console.log(this.month);
+      console.log(this.day);
+      console.log(item, index);
     },
     getMyDate(year = false, month = false) {
       let obj; // 初始化的时间对象
@@ -136,17 +147,20 @@ export default {
 </script>
  
 <style lang="scss" scoped>
-.data_riqi{
-    margin-top: 40px;
-    margin-left: 20px;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    
-    .riqi{
-        margin: 0 10px;
-        font-size: 35px;
-    }
+.bg {
+  background-color: red;
+}
+.data_riqi {
+  margin-top: 40px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+
+  .riqi {
+    margin: 0 10px;
+    font-size: 35px;
+  }
 }
 .left_but,
 .right_but {
@@ -189,11 +203,11 @@ th {
 // tbody > tr > th:hover {
 //   background-color: #e5e6e6;
 // }
-// .active,
-// .active:hover {
-//   background-color: #fb4023;
-//   color: white;
-// }
+.active,
+.active:hover {
+  background-color: #fb4023;
+  color: white;
+}
 .top > div:nth-child(2) {
   width: 100px;
   height: 100%;

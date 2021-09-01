@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div class="head" >
+    <div class="head">
       <div v-show="!token" class="login_top" @click="login">
         <img src="@/assets/img/my2.png" alt="" class="head_img">
         <p class="login">登录/注册</p>
@@ -9,7 +9,8 @@
         <img src="@/assets/img/blue.jpg" alt="" class="head_img">
         <p class="login1">{{data}}</p>
       </div>
-      <p class="qiandao" @click="go">已签到</p>
+      <p class="qiandao" @click="go" v-show="$store.state.mydata">已签到</p>
+      <p class="qiandao" @click="go" v-show="!$store.state.mydata">签到</p>
     </div>
 
     <div class="nav">
@@ -30,17 +31,18 @@
 </template>
 
 <script>
+import { SignRecord } from "@/http/path_url.js";
 export default {
   components: {},
   data() {
     return {
-      data:JSON.parse(localStorage.getItem("data")) || "",
-      token: ""
+      data: JSON.parse(localStorage.getItem("data")) || "",
+      token: "",
+      mydata: ""
     };
   },
- created() {
-    this.token = this.$store.state.token
-    
+  created() {
+    this.token = this.$store.state.token;
   },
   computed: {
     menusList() {
@@ -118,34 +120,41 @@ export default {
   },
   watch: {},
   methods: {
-    go(){
-      this.$router.push("/sign")
+    async go() {
+      let data = this.$store.state.data;
+      this.mydata = data
+      this.$store.commit("go_data",this.mydata)
+      let res = await SignRecord({ date: data });
+      console.log(res, "日期");
+      if (res.code) {
+        this.$router.push("/sign")
+      }
     },
     login() {
       this.$router.push("/login");
     }
   },
-  
+
   mounted() {}
 };
 </script>
 <style lang='scss' scoped>
-.qiandao{
-    position: absolute;
-    right: 00px;
-    top: 100px;
-    width: 170px;
-    height: 50px;
-    background-color: #5bb8f5;
-    border-radius: 20px 0px 0px 20px;
-    margin-left: 200px;
-    text-align: right;
-    font-size: 30px;
-    line-height: 50px;
-    padding-right: 20px;
-    box-sizing: border-box;
-    color: white;
-  }
+.qiandao {
+  position: absolute;
+  right: 00px;
+  top: 100px;
+  width: 170px;
+  height: 50px;
+  background-color: #5bb8f5;
+  border-radius: 20px 0px 0px 20px;
+  margin-left: 200px;
+  text-align: right;
+  font-size: 30px;
+  line-height: 50px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  color: white;
+}
 .nav_box {
   text-align: center;
   :nth-child(1) {
@@ -197,11 +206,11 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.login_bot{
+.login_bot {
   display: flex;
   align-items: center;
   margin-left: 50px;
-  .login1{
+  .login1 {
     margin-left: 40px;
     color: white;
     margin-top: 20px;
@@ -209,7 +218,7 @@ export default {
   }
 }
 .head_img {
-  margin-top: 100px; 
+  margin-top: 100px;
   width: 120px;
   height: 120px;
 }

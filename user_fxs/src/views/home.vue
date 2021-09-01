@@ -28,7 +28,7 @@
           <van-grid-item icon="hot-sale-o" text="大威天龙" />
         </van-grid>
       </div>
-      <div>
+      <div class="newcen_box">
         <div class="cen_box">
           <div class="top_text">
             <div class="top_box">
@@ -83,14 +83,14 @@
             </p>
           </div>
         </div>
-        <div v-for="(it,key) in data_ms.list" :key="key" class="js_bot">
+        <!-- <div v-for="(it,key) in data_ms.list" :key="key" class="js_bot">
           <img :src="it.teacher_avatar" alt="" class="js_img">
           <div class="ms_p">
             <p>{{it.teacher_name}}</p>
             <p>{{it.introduction}}</p>
           </div>
-        </div>
-
+        </div> -->
+        <Course />
       </div>
     </div>
     <div class="foot_box"></div>
@@ -98,9 +98,10 @@
 </template>
 
 <script>
+import Course from "@/components/Course.vue";
 import { Appindex } from "@/http/path_url.js";
 export default {
-  components: {},
+  components: { Course },
   data() {
     return {
       data_js: {},
@@ -137,6 +138,9 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+.newcen_box{
+  background: #f7f8fa;
+}
 .js_bot {
   width: 90%;
   margin: 20px auto;
@@ -187,7 +191,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   height: 150px;
-  border: 1px solid #cccccc;
+  background-color: white;
   border-radius: 20px;
   .tjkc_img {
     width: 100px;
@@ -200,6 +204,7 @@ export default {
   padding: 0 20px;
   box-sizing: border-box;
   // background-color: rgb(240, 238, 238);
+   background-color: #f7f8fa;
 }
 .js_box {
   display: flex;
@@ -208,7 +213,7 @@ export default {
   align-items: center;
   border-radius: 20px;
   margin: 20px 0px;
-  border: 1px solid #cccccc;
+  background-color: white;
 }
 .js_img {
   width: 80px;
@@ -232,9 +237,9 @@ export default {
 .top_text {
   width: 100%;
   height: 40px;
-
   display: flex;
   align-items: center;
+  background-color: #f7f8fa;
 }
 .banner_img {
   width: 100%;

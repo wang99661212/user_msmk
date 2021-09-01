@@ -11,9 +11,18 @@ export default new Vuex.Store({
   state: {
    token:"",
    num: 0,
+   data:"",
+   mydata:""
   //  weather:{} 异步
   },
   mutations: {
+    go_data(state,data){
+      state.mydata = data
+    },  
+    mydata(state,data){
+      // console.log(data);
+      state.data = data
+    },
     // saveWeather(state,arg){ 异步
     //   state.weather=arg
     // },
