@@ -94,3 +94,10 @@ export function Chapter(reg){
         method:"post"
     })
 }
+export function Datail(reg){
+    return service({
+        url:req.Datail,
+        data:reg,
+        method:"post"
+    })
+}

@@ -10,5 +10,6 @@ module.exports={
     Xiangid:"app/teacher/",
     Xianglist:"app/teacher/mainCourse",
     Basis:"app/courseInfo/basis_id=",
-    Chapter:"app/courseChapter"
+    Chapter:"app/courseChapter",
+    Datail:"app/information/detail"
 }

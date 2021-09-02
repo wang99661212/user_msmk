@@ -49,6 +49,10 @@ const routes = [
     component: () => import('@/views/Basis')
   },
   {
+    path: '/booksdetail',
+    component: () => import('@/views/booksdetail')
+  },
+  {
     path: '*',
     redirect: '/'
   }

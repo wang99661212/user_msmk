@@ -1,93 +1,106 @@
 <template>
-    <div class="box">
-        <div class="box_center" v-for="(item,index) in data_ms.list" :key="index" @click="go(item.teacher_id)">
-            <img :src="item.teacher_avatar" alt="">
-            <div class="right_text">
-                <p>{{item.teacher_name}}</p>
-                <p></p>
-                <p>{{item.introduction}}</p>
-            </div>
+    <div>
+        <div class="head_top">
+            <img :src="get_list.thumb_img" alt="">
         </div>
-        <div class="foot">到底了没有了</div>
+        <div class="text">
+            {{get_list.title}}
+        </div>
+        <div class="click_rate">
+            <span>{{get_list.click_rate}}次浏览</span>
+            <span>{{mydata}}</span>
+        </div>
+        <div class="description">
+            {{get_list.description}}
+        </div>
+        <div class="foort" v-html="get_list.content">
+
+        </div>
     </div>
 </template>
 
 <script>
-import { Appindex } from "@/http/path_url";
+import { Datail } from "@/http/path_url";
 export default {
   components: {},
   data() {
     return {
-      data_ms: {},
-      data_ms_name: ""
+      _id: "",
+      get_list: {},
+      mydata: ""
     };
   },
   computed: {},
   watch: {},
   methods: {
-    go(id){
-      this.$router.push("/xiang?id="+id)
-    },
-    async getlist() {
-      let res = await Appindex();
+    async getdata() {
+      let res = await Datail({ information_id: this._id });
       console.log(res);
-      this.data_ms = res.data[2];
-      this.data_ms_name = this.data_ms.channel_info.name;
-    //   console.log(this.data_ms);
-      // console.log(this.data_ms);
+      this.get_list = res.data;
+      let data = new Date(this.get_list.created_at * 1000);
+      let y = data.getMonth() + 1;
+      if (y <= 10) {
+        y = "0" + y;
+      }
+      let r = data.getDate();
+      if (r <= 10) {
+        r = "0" + r;
+      }
+      let mydata = y + "-" + r;
+      this.mydata = mydata;
     }
   },
   created() {
-    this.getlist();
+    this._id = this.$route.query._id;
+    this.getdata();
   },
   mounted() {}
 };
 </script>
 <style lang='scss' scoped>
-.foot{
-    color: #595959;
-    font-size: 20px;
-    text-align: center;
-    width: 100%;
-
-}
-.right_text{
-    margin-left: 20px;
-    width: 400px;
-    p:nth-child(1){
-        font-size: 4vw;
-        color: #595959;
-    }
-    p:nth-child(2){
-        height: 15px;
-        width: 100%;
-    }
-    p:nth-child(3){
-        font-size: 3.2vw;
-        color: #b7b7b7;
-    }
-}
-.box {
-  width: 100%;
-  height: 100%;
-  background: #f7f8fa;
-  overflow: hidden;
-}
-.box_center {
-  width: 90%;
-  height: 150px;
-  border-radius: 20px;
-  margin: 40px auto;
-  background: white;
-  display: flex;
-  align-items: center;
-  padding: 0px 20px;
+/deep/ .foort {
+  padding: 0 5.33333vw 5.33333vw;
+  margin-top: 7.33333vw;
+  font-size: 4.53333vw;
   box-sizing: border-box;
-  img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+  p{
+      font: inherit;
   }
+}
+.description {
+  border-bottom: 1px solid #ededed;
+  width: 26vw;
+  color: #999;
+  height: 100px;
+  font-size: 4.26667vw;
+  text-align: center;
+  margin: 60px auto;
+}
+.click_rate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.66667vw 5.33333vw;
+  box-sizing: border-box;
+  span {
+    font-size: 3.2vw;
+    color: #b7b7b7;
+    line-height: 3.2vw;
+  }
+}
+.head_top {
+  width: 100%;
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+.text {
+  font-size: 6vw;
+  color: #222;
+  line-height: 8.8vw;
+  padding: 2.66667vw 5.33333vw;
+  box-sizing: border-box;
 }
 </style>
 //                       .::::.

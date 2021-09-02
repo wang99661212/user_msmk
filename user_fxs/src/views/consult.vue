@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div v-show="ind==0">
-                    <div v-for="(item,index) in list" :key="index" class="box_cen">
+                    <div v-for="(item,index) in list" :key="index" class="box_cen" @click="go(item.id)">
                         <img :src="item.thumb_img" alt="">
                         <div class="ps">
                             <p>{{item.title}}</p>
@@ -88,7 +88,7 @@ export default {
           click_rate: 1,
           created_at: "1625220605",
           description: "八强无弱旅。四强花落谁家",
-          id: 9,
+          id: 19,
           thumb_img:
             "http://120.53.31.103:84/uploads/image/2021-07-02/iHTjTV9W44PifcYMiYY2eTDn6vBKkBF33qrCScQy.png",
           title: "欧洲杯八进四",
@@ -121,6 +121,9 @@ export default {
   },
   watch: {},
   methods: {
+    go(ind){
+      this.$router.push({path:"/booksdetail",query:{_id:ind}})
+    },
     tab(id) {
       this.ind = id;
     },
